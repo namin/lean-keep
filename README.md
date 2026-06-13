@@ -62,15 +62,21 @@ certified one level up, and provably safe at every depth.
 
 ## The two facts this answers
 
-Empirical self-improving systems (Darwin Gödel Machine, SICA, STOP,
-AlphaEvolve) all keep their evaluation gate frozen and outside the agent's
-reach — DGM explicitly, because exposing or unfreezing the gate invites
-objective hacking. The one system that lets the agent touch its own
-improvement machinery (Gödel Agent) lists self-destruction by editing it as a
-characteristic failure mode. On the theory side, the Gödel machine collapses
-all meta-levels into a single theorem, and Yudkowsky–Herreshoff's tiling
-agents shows a gate cannot certify a successor gate of equal logical strength
-*in the abstract* (the Löbian obstacle).
+Empirical self-improving systems ([Darwin Gödel
+Machine](https://arxiv.org/abs/2505.22954),
+[SICA](https://arxiv.org/abs/2504.15228),
+[STOP](https://arxiv.org/abs/2310.02304),
+[AlphaEvolve](https://arxiv.org/abs/2506.13131)) all keep their evaluation
+gate frozen and outside the agent's reach — DGM explicitly, because exposing
+or unfreezing the gate invites objective hacking. The one system that lets
+the agent touch its own improvement machinery ([Gödel
+Agent](https://arxiv.org/abs/2410.04444)) lists self-destruction by editing
+it as a characteristic failure mode. On the theory side, the [Gödel
+machine](https://arxiv.org/abs/cs/0309048) collapses all meta-levels into a
+single theorem, and Yudkowsky–Herreshoff's [tiling
+agents](https://intelligence.org/files/TilingAgentsDraft.pdf) shows a gate
+cannot certify a successor gate of equal logical strength *in the abstract*
+(the Löbian obstacle).
 
 The way through is the LCF discipline lifted one level: a running system
 never needs the Löb-blocked quantified self-trust ("all proofs are true") —
