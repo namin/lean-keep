@@ -140,6 +140,15 @@ level `n+1` demands.
   and strict gain (witness: baseline cannot evaluate `(* 2 3 4)`; the final
   state evaluates it to `24`).
 
+## Tutorial instance (`Keep/Dial.lean`, ~70 lines)
+
+`Keep/Core.lean` is fully parametric; [TUTORIAL.md](TUTORIAL.md) builds a
+second, minimal instance from scratch — a dial with a hard limit, where gate
+descriptions are caps and gate evolution is cap-tightening — to show the
+recipe: pick `Inv`, choose proposal syntax per level, prove the descriptions
+sound by one induction, refuse the corrupt description at every level,
+collect `tower_safe` for free.
+
 ## Run
 
 ```

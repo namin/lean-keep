@@ -1,5 +1,6 @@
 import Keep.Core
 import Keep.Calculator
+import Keep.Dial
 
 /-!
 # Keep.Audit — pinned axiom footprint
@@ -39,3 +40,15 @@ only (`propext`, `Quot.sound`); no `Classical.choice`, no `sorry`, no
 
 /-- info: 'Calc.rollback_refused' does not depend on any axioms -/
 #guard_msgs in #print axioms Calc.rollback_refused
+
+/-- info: 'Dial.clamp_sound' does not depend on any axioms -/
+#guard_msgs in #print axioms Dial.clamp_sound
+
+/-- info: 'Dial.overcap_unsound' does not depend on any axioms -/
+#guard_msgs in #print axioms Dial.overcap_unsound
+
+/-- info: 'Dial.no_sound_gate_admits_overcap' does not depend on any axioms -/
+#guard_msgs in #print axioms Dial.no_sound_gate_admits_overcap
+
+/-- info: 'Dial.d1_safe' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Dial.d1_safe
