@@ -1,0 +1,41 @@
+import Keep.Core
+import Keep.Calculator
+
+/-!
+# Keep.Audit — pinned axiom footprint
+
+Build fails if any theorem's axiom dependencies change. Standard axioms
+only (`propext`, `Quot.sound`); no `Classical.choice`, no `sorry`, no
+`native_decide` anywhere in the development. The refusal theorems are
+`rfl`: they depend on no axioms at all.
+-/
+
+/-- info: 'Keep.tower_safe' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Keep.tower_safe
+
+/-- info: 'Keep.sound_antitone' does not depend on any axioms -/
+#guard_msgs in #print axioms Keep.sound_antitone
+
+/-- info: 'Keep.frozen_sound' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Keep.frozen_sound
+
+/-- info: 'Calc.protect_sound' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs in #print axioms Calc.protect_sound
+
+/-- info: 'Calc.nil_unsound' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Calc.nil_unsound
+
+/-- info: 'Calc.no_sound_gate_admits_nil' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Calc.no_sound_gate_admits_nil
+
+/-- info: 'Calc.demo_safe' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs in #print axioms Calc.demo_safe
+
+/-- info: 'Calc.demo_improves' depends on axioms: [propext, Quot.sound] -/
+#guard_msgs in #print axioms Calc.demo_improves
+
+/-- info: 'Calc.clobber_refused' does not depend on any axioms -/
+#guard_msgs in #print axioms Calc.clobber_refused
+
+/-- info: 'Calc.rollback_refused' does not depend on any axioms -/
+#guard_msgs in #print axioms Calc.rollback_refused
