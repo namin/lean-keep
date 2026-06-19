@@ -179,7 +179,8 @@ gate-swap soundness *in the Black-faithful tower*, with heaps and closures —
 see lean-sage's SCOPE.md); it isolates the principle that problem instantiates.
 It does not evade the Löbian obstacle in proof-theoretic strength: all
 certificates live in one ambient logic, and replacing the *checker* (rather
-than a gate) is exactly where the tiling-agents telomere would begin. The
+than a gate) is exactly where the tiling-agents telomere would begin —
+[LOEB.md](LOEB.md) works this out in full. The
 gates here are checkers over syntax; richer evidence kinds (per-modification
 proof terms, as in lean-sage's proof-bearing approvals) compose with the same
 tower unchanged.
