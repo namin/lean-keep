@@ -144,13 +144,14 @@ theorem no_sound_gate_admits_nil {n : Nat} {h : world.P (n + 1) → Bool}
   | false => rfl
   | true => exact absurd (hs [] e) (nil_unsound n)
 
-/-! ## The demo trace: improve, lock in, refuse
+/-! ## The demo trace: improve, protect, refuse
 
 Four configurations. `t0`: baseline under the standard stack protecting
 `{+, id}`. `t1`: `mult` admitted at level 0 — `(* 2 3 4) ⇒ 24`, strictly
 beyond the baseline. `t2`: gate 0 replaced (via level 1) by one that also
-protects `"*"` — the improvement is locked in. `t3`: gate 1 replaced (via
-level 2) by one that *demands* `"*"` stay protected — the lock is locked.
+protects `"*"` — the clobber is now refused. `t3`: gate 1 replaced (via
+level 2) by one that *demands* `"*"` stay protected — so the rollback is
+refused one level up.
 
 Then the refusals: clobbering `"*"` is refused at level 0 (it was
 admissible at `t1`!), and rolling back the protection is refused at

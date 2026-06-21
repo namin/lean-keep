@@ -31,7 +31,7 @@ def main : IO Unit := do
     (install collapse base "id" [3]) (some 42)
 
   IO.println ""
-  IO.println "=== Scene 3: level 1 — replace gate 0, locking mult in ==="
+  IO.println "=== Scene 3: level 1 — replace gate 0, protecting mult ==="
   gate "swap gate 0 to protect {+,id,*}" (t1.gates 1 l₁) true
   gate "clobber * — admissible BEFORE"  (t1.gates 0 ⟨"*", fun _ => some 0⟩) true
   gate "clobber * — refused AFTER"      (t2.gates 0 ⟨"*", fun _ => some 0⟩) false
@@ -60,7 +60,7 @@ def main : IO Unit := do
   check "      witness after " (t3.state "*" [2, 3, 4]) (some 24)
 
   IO.println ""
-  IO.println "=== Scene 6: improving the *verifier*, not the gate (Keep/Optimizer.lean) ==="
+  IO.println "=== Scene 6: improving the gate, not merely hardening it (Keep/Optimizer.lean) ==="
   IO.println "    Rewrite under test:  x + x  ↦  x << 1  (a strict cost reduction)"
   gate "weak validator (syntactic) admits it"  (Opt.basicCheck Opt.doubleRule)            false
   gate "gate 1 admits the certified exhaustive validator"

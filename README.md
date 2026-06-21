@@ -44,8 +44,8 @@ names `{+, id}` and admits any patch elsewhere.
    `t2.gates 0 ⟨"*", junk⟩ = false` (`clobber_refused` — by `rfl`,
    independent of the payload). Then gate 2 admits hardening gate 1 to
    *demand* `*` stay protected, after which rolling the protection back is
-   refused one level up (`rollback_refused`). The improvement locked itself
-   in, and the lock locked itself.
+   refused one level up (`rollback_refused`) — so under this stack both the
+   clobber and the rollback are refused.
 
 4. **And nothing was assumed along the way.** `tower_safe`: at the end of
    the run the invariant holds and every gate in the stack — including the
@@ -187,13 +187,14 @@ level `n+1` demands.
   β-collapse is itself refused, arbitrarily many levels before the harm.
 - **The demo trace** (`t0 → t1 → t2 → t3`, theorems `step01`–`step23`,
   `demo_reach`, `demo_safe`): admit `mult` (strict gain, `(* 2 3 4) ⇒ 24`);
-  replace gate 0 to protect `*` (the improvement locks itself in); replace
-  gate 1 to demand `*` stay protected (the lock is locked).
+  replace gate 0 to also protect `*` (so the clobber is now refused); replace
+  gate 1 to demand `*` stay protected (so the rollback is refused one level up).
 - **`clobber_was_admissible` / `clobber_refused`** — the same patch, admitted
   before the hardening, refused after; refusal is independent of the payload
   and holds by `rfl`.
 - **`rollback_refused`** — un-protecting `*` is refused one level up, also by
-  `rfl`: no take-backs without a certificate the tower will not grant.
+  `rfl`: under this stack a rollback would need a certificate gate 1 does not
+  grant (gates remain swappable through the level above; only the kernel is fixed).
 - **`demo_improves`** — the improvement pair for the whole trace,
   kernel-checked: no regression (conservative extension, from `demo_safe`)
   and strict gain (witness: baseline cannot evaluate `(* 2 3 4)`; the final
@@ -212,7 +213,7 @@ collect `tower_safe` for free.
 
 ```
 lake build        # library + pinned axiom audit (Keep/Audit.lean)
-lake exe smoke    # five scenes: admissions, refusals, the cascade
+lake exe smoke    # six scenes: admissions, refusals, the cascade, the relaxation
 ```
 
 Axiom footprint, CI-pinned: `propext` and `Quot.sound` only — no
