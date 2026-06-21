@@ -58,3 +58,14 @@ def main : IO Unit := do
   IO.println "    demo_improves:  no regression (CE) ∧ strict gain:"
   check "      witness before" (base "*" [2, 3, 4])     none
   check "      witness after " (t3.state "*" [2, 3, 4]) (some 24)
+
+  IO.println ""
+  IO.println "=== Scene 6: improving the *verifier*, not the gate (Keep/Optimizer.lean) ==="
+  IO.println "    Rewrite under test:  x + x  ↦  x << 1  (a strict cost reduction)"
+  gate "weak validator (syntactic) admits it"  (Opt.basicCheck Opt.doubleRule)            false
+  gate "gate 1 admits the certified exhaustive validator"
+    (Opt.c0.gates 1 Opt.exhaustiveValidator) true
+  gate "after the swap, new gate 0 admits it" (Opt.c1.gates 0 Opt.doubleRule)             true
+  IO.println s!"    installed, and cost-reducing:  cost(lhs)={Opt.cost Opt.doubleRule.lhs}  >  cost(rhs)={Opt.cost Opt.doubleRule.rhs}"
+  IO.println "    The gate did not get more cautious — it got more capable. Correctness of"
+  IO.println "    the installed rewrite is still read off `tower_safe` (Opt.installed_semEq)."

@@ -60,6 +60,59 @@ its gate must improve with it.** Freezing the gate (sound, dead —
 self-modifying agents die. Here gate evolution is an ordinary admitted step,
 certified one level up, and provably safe at every depth.
 
+## The meaningful use case: safe *relaxation* (`Keep/Optimizer.lean`)
+
+**When a useful change cannot pass the current verifier, the system can improve
+the verifier without weakening correctness.**
+
+The Calculator demo above *hardens* gates — each reflective step admits less.
+The dual, and the more interesting direction, is to make a gate admit **more**.
+That is what an evolving system actually needs: its current verifier is too weak
+to certify a change it has good reason to make.
+
+The object system is a peephole optimizer over a tiny 4-bit expression language;
+the invariant is that every installed rewrite is semantics-preserving (`SemEq`,
+checked at all 16 inputs). Gate 0 is the *validator*. The central witness is the
+genuinely useful rewrite `x + x ↦ x << 1` — a strict cost reduction
+(`double_cheaper`).
+
+1. **The weak validator can't see it.** `basicCheck` only recognizes syntactic
+   identities (`e`, `e + 0`); it is transparently sound (`basicCheck_sound`) but
+   rejects the rewrite (`basic_rejects_double`). No object-level move helps — the
+   rewrite is *correct*, the validator just can't certify it.
+
+2. **Install a stronger validator, through the gate above.** `exhaustiveCheck`
+   decides semantic equality at every input, with a generic soundness theorem
+   (`exhaustiveCheck_sound`) — the substance, not that any one rule passes. It is
+   **strictly more permissive** than the old gate: it admits everything
+   `basicCheck` does and strictly more (`exhaustive_strictly_better`, witnessed
+   by the rewrite itself). Crucially this is *relaxation*, so it is **not**
+   justified by `sound_antitone` (that lemma is free hardening only). It enters
+   as a `CertifiedValidator` proposal admitted at gate 1.
+
+3. **The new gate 0 admits the rewrite, and it is installed** (`c1_admits_double`,
+   `installed_mem`).
+
+4. **Correctness still holds — read off the final invariant.** `SemEq doubleRule`
+   is not re-proved at the end; it is extracted from `demo_safe.1` — the registry
+   invariant after the certified trace — so the example visibly exercises
+   `tower_safe` (`installed_semEq`). The endpoint bundle is
+   `demo_improves_validator`.
+
+The gate did not get more cautious; it got more *capable*, and the invariant was
+never weakened. The LCF boundary is what makes gate 1 safe: it admits *every*
+`CertifiedValidator` with Boolean answer `true`, yet its soundness obligation is
+discharged entirely by the proposal's own kernel-checked `sound` field
+(`initGates_sound`, via `certified_gate0_sound`) — admission is easy only because
+*constructing* the proposal was already kernel-checked.
+
+**What this is not.** This does not solve the Löbian obstacle, does not replace
+the *checker*, and does not permanently preserve newly discovered capabilities.
+The fixed trusted component is still Lean's kernel; all soundness certificates
+live in one ambient logic. What changes across the step is the executable
+validation **policy** — a strictly more permissive, still-sound verifier — not
+the trust root.
+
 ## The two facts this answers
 
 Empirical self-improving systems ([Darwin Gödel

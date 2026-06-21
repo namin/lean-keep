@@ -1,6 +1,7 @@
 import Keep.Core
 import Keep.Calculator
 import Keep.Dial
+import Keep.Optimizer
 
 /-!
 # Keep.Audit — pinned axiom footprint
@@ -52,3 +53,33 @@ only (`propext`, `Quot.sound`); no `Classical.choice`, no `sorry`, no
 
 /-- info: 'Dial.d1_safe' depends on axioms: [propext] -/
 #guard_msgs in #print axioms Dial.d1_safe
+
+/-! ## Optimizer (safe relaxation)
+
+The registry is a plain `List`, so these never touch `Quot.sound`: the
+footprint is `propext` only, lighter than the Calculator's. The rejection fact
+is `by decide` and depends on no axioms. -/
+
+/-- info: 'Opt.exhaustiveCheck_sound' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Opt.exhaustiveCheck_sound
+
+/-- info: 'Opt.basicCheck_sound' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Opt.basicCheck_sound
+
+/-- info: 'Opt.exhaustive_strictly_better' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Opt.exhaustive_strictly_better
+
+/-- info: 'Opt.initGates_sound' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Opt.initGates_sound
+
+/-- info: 'Opt.demo_safe' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Opt.demo_safe
+
+/-- info: 'Opt.installed_semEq' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Opt.installed_semEq
+
+/-- info: 'Opt.demo_improves_validator' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Opt.demo_improves_validator
+
+/-- info: 'Opt.basic_rejects_double' does not depend on any axioms -/
+#guard_msgs in #print axioms Opt.basic_rejects_double
