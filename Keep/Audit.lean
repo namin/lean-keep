@@ -66,8 +66,8 @@ is `by decide` and depends on no axioms. -/
 /-- info: 'Opt.basicCheck_sound' depends on axioms: [propext] -/
 #guard_msgs in #print axioms Opt.basicCheck_sound
 
-/-- info: 'Opt.exhaustive_strictly_better' depends on axioms: [propext] -/
-#guard_msgs in #print axioms Opt.exhaustive_strictly_better
+/-- info: 'Opt.exhaustive_strictly_more_permissive' depends on axioms: [propext] -/
+#guard_msgs in #print axioms Opt.exhaustive_strictly_more_permissive
 
 /-- info: 'Opt.initGates_sound' depends on axioms: [propext] -/
 #guard_msgs in #print axioms Opt.initGates_sound

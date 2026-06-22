@@ -16,7 +16,7 @@ The story is a **safe relaxation**:
    weak validator `basicCheck`, which only knows syntactic identities.
 2. Through gate 1 we install a stronger validator, `exhaustiveCheck`, which
    decides semantic equality at all 16 inputs. It admits **strictly more** than
-   the old gate (`exhaustive_strictly_better`) while remaining sound
+   the old gate (`exhaustive_strictly_more_permissive`) while remaining sound
    (`exhaustiveCheck_sound`).
 3. The new gate 0 now admits the rewrite, and it is installed.
 4. Semantic correctness is *still* guaranteed — read straight off the final
@@ -126,7 +126,7 @@ theorem exhaustive_accepts_double : exhaustiveCheck doubleRule = true := by deci
 def Extends (old new : Rewrite → Bool) : Prop :=
   ∀ r, old r = true → new r = true
 
-def StrictlyBetter (old new : Rewrite → Bool) : Prop :=
+def StrictlyMorePermissive (old new : Rewrite → Bool) : Prop :=
   Extends old new ∧ ∃ r, old r = false ∧ new r = true
 
 /-- **The replacement admits strictly more.** Everything `basicCheck` accepts is
@@ -134,7 +134,7 @@ semantics-preserving (`basicCheck_sound`), hence accepted by `exhaustiveCheck`
 (`exhaustiveCheck_complete`); and `doubleRule` is accepted by the new gate but
 not the old. This is *relaxation*, established without appeal to
 `Keep.sound_antitone` — that lemma is for hardening and does not apply here. -/
-theorem exhaustive_strictly_better : StrictlyBetter basicCheck exhaustiveCheck :=
+theorem exhaustive_strictly_more_permissive : StrictlyMorePermissive basicCheck exhaustiveCheck :=
   ⟨fun r hr => exhaustiveCheck_complete r (basicCheck_sound r hr),
    doubleRule, basic_rejects_double, exhaustive_accepts_double⟩
 
@@ -265,13 +265,13 @@ theorem installed_semEq : SemEq doubleRule :=
 installable through a strictly-more-permissive, still-sound verifier, with
 correctness preserved end to end. -/
 theorem demo_improves_validator :
-    StrictlyBetter basicCheck exhaustiveCheck
+    StrictlyMorePermissive basicCheck exhaustiveCheck
       ∧ c0.gates 0 doubleRule = false
       ∧ c1.gates 0 doubleRule = true
       ∧ (doubleRule ∈ show List Rewrite from c2.state)
       ∧ SemEq doubleRule
       ∧ cost doubleRule.rhs < cost doubleRule.lhs :=
-  ⟨exhaustive_strictly_better, c0_rejects_double, c1_admits_double,
+  ⟨exhaustive_strictly_more_permissive, c0_rejects_double, c1_admits_double,
    installed_mem, installed_semEq, double_cheaper⟩
 
 end Opt

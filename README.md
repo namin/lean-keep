@@ -85,7 +85,7 @@ genuinely useful rewrite `x + x ↦ x << 1` — a strict cost reduction
    decides semantic equality at every input, with a generic soundness theorem
    (`exhaustiveCheck_sound`) — the substance, not that any one rule passes. It is
    **strictly more permissive** than the old gate: it admits everything
-   `basicCheck` does and strictly more (`exhaustive_strictly_better`, witnessed
+   `basicCheck` does and strictly more (`exhaustive_strictly_more_permissive`, witnessed
    by the rewrite itself). Crucially this is *relaxation*, so it is **not**
    justified by `sound_antitone` (that lemma is free hardening only). It enters
    as a `CertifiedValidator` proposal admitted at gate 1.
